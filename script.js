@@ -43,7 +43,6 @@
 // }
 // document.querySelector('.tecla_tom').onclick = tocarSomTom;
 
-
 // function tocarSom(idElementoAudio) {
 //         document.querySelector(idElementoAudio).play();
 //     }
@@ -72,34 +71,39 @@
 // }
 
 //para
-function tocarSom(idElementoAudio) {
-    document.querySelector(idElementoAudio).play();
+function tocarSom(seletorAudio) {
+  const elemento = document.querySelector(seletorAudio);
+
+  if (elemento != null && elemento.localName === 'audio') {
+    elemento.play();
+  }
+  else {
+    alert('Elemento não encontrado!')
+  }
+ 
 }
 
-const listaDeTeclas = document.querySelectorAll('.tecla');
- 
-for (let contador = 0; contador < listaDeTeclas.length; contador ++) {
+const listaDeTeclas = document.querySelectorAll(".tecla");
 
-    const tecla = listaDeTeclas[contador];
-    const instrumento = tecla.classList[1];
-    const idAudio = `#som_${instrumento}`;    //template string
+for (let contador = 0; contador < listaDeTeclas.length; contador++) {
+  const tecla = listaDeTeclas[contador];
+  const instrumento = tecla.classList[1];
+  const idAudio = `#som_${instrumento}`; //template string
 
-    tecla.onclick = function() {
-        tocarSom(idAudio);
+  tecla.onclick = function () {
+    tocarSom(idAudio);
+  };
+
+  tecla.onkeydown = function (evento) {
+    if (evendo.code === "Space" || evendo.code === "Enter") {
+      tecla.classList.add("ativa");
     }
+    // if (evendo.code === 'Enter'){
+    //     tecla.classList.add('ativa');
+    // }
+  };
 
-    tecla.onkeydown = function(evento) {
-
-        if (evendo.code === 'Space' || evendo.code ===  'Enter'){
-            tecla.classList.add('ativa');
-        }
-        // if (evendo.code === 'Enter'){
-        //     tecla.classList.add('ativa');
-        // }
-    }
-
-    tecla.onkeyup = function() {
-        tecla.classList.remove('ativa');
-    }
-    
+  tecla.onkeyup = function () {
+    tecla.classList.remove("ativa");
+  };
 }
